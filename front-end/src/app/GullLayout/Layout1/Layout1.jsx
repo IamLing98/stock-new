@@ -1,5 +1,4 @@
 import React, { Component, Suspense } from "react";
-import AppContext from "app/appContext";
 import { renderRoutes } from "react-router-config";
 
 import Layout1Sidenav from "./Layout1Sidenav";
@@ -23,9 +22,9 @@ class Layout1 extends Component {
       merge({}, settings, {
         layout1Settings: {
           searchBox: {
-            open: false
-          }
-        }
+            open: false,
+          },
+        },
       })
     );
   };
@@ -43,13 +42,13 @@ class Layout1 extends Component {
           <div
             className={classList({
               "main-content-wrap d-flex flex-column": true,
-              "sidenav-open": settings.layout1Settings.leftSidebar.open
+              "sidenav-open": settings.layout1Settings.leftSidebar.open,
             })}
           >
             <Suspense fallback={<Loading />}>
               <div className="main-content">{renderRoutes(routes)}</div>
             </Suspense>
-            {(settings.footer.show && <Footer></Footer>)}
+            {/* {settings.footer.show && <Footer></Footer>} */}
           </div>
         </div>
         <GullSearch
@@ -61,9 +60,9 @@ class Layout1 extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   setLayoutSettings: PropTypes.func.isRequired,
-  settings: state.layout.settings
+  settings: state.layout.settings,
 });
 
 export default connect(mapStateToProps, { setLayoutSettings })(Layout1);

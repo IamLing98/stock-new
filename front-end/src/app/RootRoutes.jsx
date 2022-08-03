@@ -43,6 +43,7 @@ const routes = [
     path: "/",
     component: AuthGuard,
     routes: [
+      ...Matrix,
       ...dashboardRoutes,
       ...uiKitsRoutes,
       ...formsRoutes,
@@ -61,7 +62,6 @@ const routes = [
       ...contactRoutes,
       ...redirectRoute,
       ...errorRoute,
-      ...Matrix,
     ],
   },
 ];

@@ -1,0 +1,333 @@
+// // .report {
+// //     .MuiTableCell-root {
+// //         padding: 0px !important;
+// //         font-weight: bold !important;
+// //     }
+
+// //     .MuiTextField-root {
+// //         width: 100%;
+// //     }
+// //     .MuiTableCell-body {
+// //         div {
+// //             // min-height: 82px !important;
+// //             // height: 38px !important;
+// //             // border: 1px solid rgb(0, 0, 0);
+// //         }
+// //         .div-table-cell {
+// //             min-height: 82px !important;
+// //         }
+// //     }
+// //     .MuiTableBody-root {
+// //         //   tr {
+// //         //     height: 38px !important;
+// //         //   }
+
+// //         .MuiTableCell-alignRight {
+// //             padding: 0px !important;
+// //             height: 30px !important;
+// //             // border: 1px solid rgb(0, 0, 0);
+// //             // max-width: 100px !important;
+// //             div {
+// //                 height: 40px !important;
+// //                 // line-height: 70px;
+// //                 width: 100% !important;
+// //                 font {
+// //                     font-weight: bolder !important;
+// //                     clear: both;
+// //                     //   display: inline-block;
+// //                     overflow: hidden;
+// //                     white-space: nowrap;
+// //                 }
+// //             }
+// //         }
+// //     }
+
+// //     .MuiTable-root {
+// //         td,
+// //         th {
+// //             border: 1px solid rgb(36, 35, 35);
+// //         }
+// //         thead {
+// //             tr {
+// //                 th {
+// //                     // border: 1px solid #d6dee5;
+// //                     padding: 5px !important;
+// //                     font-weight: 900;
+// //                     width: auto;
+// //                     span {
+// //                         text-align: center !important;
+// //                         clear: both;
+// //                         //   display: inline-block;
+// //                         overflow: hidden;
+// //                         white-space: nowrap;
+// //                     }
+// //                 }
+// //             }
+// //         }
+// //     }
+
+// //     .MuiTableCell-body {
+// //         .MuiFormControl-root {
+// //             input[value]:not([value='']) {
+// //                 width: 200px;
+// //             }
+// //             input:focus {
+// //                 width: 200px;
+// //             }
+// //             // .Mui-focused {
+// //             //   width: 200px;
+// //             // }
+// //         }
+// //     }
+// // }
+
+// // //stock detail
+// // .stock-info {
+// //     text-align: center;
+// //     height: 150px;
+// //     vertical-align: middle;
+// // }
+
+// // .text-center {
+// //     text-align: center;
+// // }
+// // .pull-right {
+// //     text-align: right;
+// //     float: right !important;
+// // }
+// // .tradingInfo-p {
+// //     margin-bottom: 10px;
+// // }
+
+// // .trading-info-grid {
+// //     padding: 12px !important;
+// //     // border-right: 1px solid black;
+// // }
+
+// // .MuiTableCell-sizeSmall {
+// //     // border: 1px solid #e5ecf0;
+// //     color: 'black' !important;
+// // }
+
+// // .board-management {
+// //     width: 100%;
+// //     border: 1px solid;
+// // }
+
+// // ///@at-root
+// // .div-table-cell {
+// //     font {
+// //         display: block !important;
+// //         width: max-content !important;
+// //     }
+// // }
+
+// .report {
+
+     
+//     thead {
+//         // border: 1px solid rgb(46, 44, 44) !important;
+//     }
+//     th {
+//         // border: 1px solid rgb(46, 44, 44) !important;
+//         span {
+//             div {
+//                 clear: both;
+//                 display: inline-block;
+//                 overflow: hidden;
+//                 white-space: nowrap;
+//             }
+//         }
+//     }
+
+//     tbody {
+//         tr:first-child {
+//             td {
+//                 border: none !important;
+//                 input[value]:not([value='']) {
+//                     width: 200px;
+//                 }
+//                 input:focus {
+//                     width: 200px;
+//                 }
+//                 div {
+//                     border: 1px solid rgba(224, 224, 224, 1) !important;
+//                     div {
+//                         border: none !important;
+//                         display: flex !important;
+//                         flex-direction: row !important;
+//                     }
+//                 }
+//             }
+//         }
+//         tr {
+//             td {
+//                 // display: flex !important;
+//                 flex-direction: column !important;
+//                 padding: 0px !important;
+//                 border: 1px solid rgba(224, 224, 224, 1) !important;
+//                 height: inherit !important;
+
+//                 font {
+//                     clear: both;
+//                     display: inline-block;
+//                     overflow: hidden;
+//                     white-space: nowrap;
+//                     padding: 0 5px;
+//                 }
+
+//                 div {
+//                     // display: table-cell !important;
+//                     height: 100% !important;
+//                     display: flex !important;
+//                     flex-direction: column;
+
+//                     justify-content: space-around !important;
+
+//                     div {
+//                         fieldset {
+//                             border: none !important;
+//                             legend {
+//                                 display: none;
+//                             }
+//                         }
+//                     }
+//                     font {
+//                         clear: both;
+//                         display: inline-block;
+//                         overflow: hidden;
+//                         white-space: nowrap;
+//                         padding: 0 5px;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// // .stock-detail {
+// //     .stock-detail-main {
+// //         height: 900px;
+// //         overflow: scroll;
+// //     }
+// //     .MuiCardHeader-root {
+// //         padding: 24px;
+// //         position: sticky;
+// //         top: 0;
+// //         opacity: 1;
+// //         z-index: 10000;
+// //         background: white !important;
+// //     }
+// // }
+
+// .stock-detail {
+//     .detail-tabs-header {
+//         background-color: white;
+//         color: black !important;
+//         .MuiTab-textColorInherit {
+//             color: black !important;
+//             opacity: 1;
+//         }
+//         .Mui-selected {
+//             background-color: #ede7f6;
+//             color: #5e35b1;
+//         }
+//     }
+
+//     .react-swipeable-view-container {
+//         background-color: #e3f2fd;
+//     }
+//     .MuiTab-textColorInherit {
+//         clear: both;
+//         // display: inline-block;
+//         overflow: hidden;
+//         white-space: nowrap;
+//     }
+//     .dashboard {
+//         .MuiBox-root {
+//             padding: 0px;
+
+//             .MuiPaper-root {
+//                 border-radius: 0px;
+//             }
+//             .MuiCard-root {
+//                 margin-top: 24px;
+//             }
+//             .MuiGrid-item {
+//                 padding-top: 0px;
+//             }
+//         }
+//     }
+
+//     .finance-analysis {
+//         .MuiBox-root {
+//             // background-color: #e3f2fd;
+//             padding: 0px;
+
+//             .MuiPaper-root {
+//                 border-radius: 0px;
+//             }
+//             .MuiCard-root {
+//                 margin-top: 24px;
+//             }
+//             .MuiGrid-item {
+//                 padding-top: 0px;
+//             }
+//         }
+//     }
+// }
+// .bold-900 {
+//     font-weight: 900;
+// }
+
+// .bold-100 {
+//     font-weight: 100;
+// }
+
+// .bg-color-brown {
+//     background-color: #e3f2fd;
+// }
+// .color-green {
+//     color: green;
+// }
+
+// .color-red {
+//     color: red;
+// }
+
+// .finance-overview {
+//     .chart-wrapper {
+//         padding: 0px;
+//     }
+// }
+
+// p{
+//     margin:0px !important
+// }
+
+// .report tbody tr:first-child td div{
+//     max-height: 42px;
+// }
+
+// .total-style{
+//     color:red;
+// }
+
+.p-inrow{
+    margin: 0 !important;
+}
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .ag-root-wrapper .ag-watermark {
+    display: none;
+  }
+  
+  .ag-header-icon,
+  .ag-header-cell-menu-button {
+    opacity: 1;
+  }
+  

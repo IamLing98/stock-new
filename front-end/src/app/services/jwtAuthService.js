@@ -22,7 +22,7 @@ class JwtAuthService {
         .then((res) => {
           let payload = res?.data?.payload;
           this.setSession(payload.accessToken);
-          this.setUser(payload?.user);
+          this.setUser(payload?.user); 
           resolve(payload);
         });
     });

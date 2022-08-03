@@ -1,11 +1,12 @@
 import { lazy } from "react";
 
-const AppCalendar = lazy(() => import("./AppCalendar"));
+const Root = lazy(() => import("./root"));
 
 const route = [
   {
-    path: "/matrix",
-    component: AppCalendar,
+    path: "/matrix/list",
+    exact: true,
+    component: Root,
   },
 ];
 
