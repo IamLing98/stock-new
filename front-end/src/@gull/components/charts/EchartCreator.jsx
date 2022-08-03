@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { EchartTheme } from "@gull";
 import { withStyles } from "@material-ui/core";
 
-const EchartCreator = props => {
+const EchartCreator = (props) => {
   echarts.registerTheme("echarts-theme", EchartTheme(props.theme));
 
   return (
@@ -20,7 +20,7 @@ const EchartCreator = props => {
 
 EchartCreator.prototype = {
   height: PropTypes.string.isRequired,
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
 export default withStyles({}, { withTheme: true })(EchartCreator);

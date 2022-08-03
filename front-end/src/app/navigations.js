@@ -20,6 +20,20 @@ export const navigations = [
     ],
   },
   {
+    name: "Matrix",
+    description: "Lorem ipsum dolor sit.",
+    type: "dropDown",
+    icon: "i-Double-Tap",
+    sub: [
+      {
+        icon: "i-Error-404-Window",
+        name: "Matrix",
+        path: "/matrix/list",
+        type: "link",
+      },
+    ],
+  },
+  {
     name: "UI kits",
     description: "Lorem ipsum dolor sit.",
     type: "dropDown",

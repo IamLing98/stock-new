@@ -22,9 +22,9 @@ class Layout2 extends Component {
       merge({}, settings, {
         layout2Settings: {
           searchBox: {
-            open: false
-          }
-        }
+            open: false,
+          },
+        },
       })
     );
   };
@@ -37,19 +37,18 @@ class Layout2 extends Component {
         <div
           className={`${classList({
             "app-admin-wrap layout-sidebar-compact clearfix": true,
-            "sidenav-open": settings.layout2Settings.leftSidebar.open
+            "sidenav-open": settings.layout2Settings.leftSidebar.open,
           })} ${settings.layout2Settings.leftSidebar.theme}`}
         >
           <Layout2Sidenav></Layout2Sidenav>
-          {/* sidebar */}
 
           <div
             className={classList({
               "main-content-wrap d-flex flex-column": true,
-              "sidenav-open": settings.layout2Settings.leftSidebar.open
+              "sidenav-open": settings.layout2Settings.leftSidebar.open,
             })}
           >
-            {(settings.layout2Settings.header.show && <Layout2Header></Layout2Header>)}
+            {settings.layout2Settings.header.show && <Layout2Header></Layout2Header>}
             <Suspense fallback={<Loading />}>
               <div className="main-content">{renderRoutes(routes)}</div>
             </Suspense>
@@ -65,8 +64,8 @@ class Layout2 extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  settings: state.layout.settings
+const mapStateToProps = (state) => ({
+  settings: state.layout.settings,
 });
 
 export default connect(mapStateToProps, { setLayoutSettings })(Layout2);

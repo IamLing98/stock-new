@@ -16,7 +16,7 @@
 @import "~ladda/dist/ladda.min.css";
 @import "~react-notifications/lib/notifications.css";
 @import "~sweetalert2/src/sweetalert2.scss";
-@import "~react-image-crop/lib/ReactCrop.scss";
+// @import "~react-image-crop/lib/ReactCrop.scss";
 @import "~react-datepicker/dist/react-datepicker.css";
 @import "../../../node_modules/@fullcalendar/timegrid/main.css";
 @import "../../../node_modules/react-grid-layout/css/styles.css";
@@ -33,4 +33,4 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "bootstrap-rtl.scss";
 @import "globals/globals";
-@import "extra.scss";
+@import "extra.scss"; 

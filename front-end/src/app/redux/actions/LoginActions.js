@@ -18,16 +18,7 @@ export function loginWithEmailAndPassword({ username, password }) {
       .then((payload) => {
         console.log(payload);
         dispatch(setUserData(payload?.user));
-        // history
-        //   .push({
-        //     pathname: "/",
-        //   })
-        //   .catch((err) => {
-        //     console.log(err);
-        //     return err;
-        //   });
 
-        window.location.href = "/";
         return dispatch({
           type: LOGIN_SUCCESS,
         });
