@@ -2,12 +2,15 @@ import { Model } from 'mongoose';
 import { Injectable, Inject, Req } from '@nestjs/common';
 import ReponseData from 'src/utils/response';
 import { HTTP_STATUS_OK } from 'src/utils/message';
-const fetch = require("node-fetch");
+import fetch from 'node-fetch'
 
 @Injectable()
-export class StockService {
+export class DashboardService {
     constructor(
-        lstItemCode = [
+    
+    ) { }
+
+          lstItemCode = [
             {itemCode: '51001', itemName: 'Cao nhất 52 tuần'},
             {itemCode: '51002', itemName: 'Thấp nhất 52 tuần'},
             {itemCode: '51003', itemName: 'Vốn hóa thị trường'},
@@ -19,8 +22,7 @@ export class StockService {
             {itemCode: '57066', itemName: 'Free float'},
             {itemCode: '51033', itemName: 'Tỷ suất cổ tức'},
             {itemCode: '51035', itemName: 'BPVS'},
-        ]
-    ) { }
+         ]
 
     async getDataBCTC(code: string) {
 
@@ -53,4 +55,15 @@ export class StockService {
     }
 }
 
-export default StockService;
+export default DashboardService;
+ 
+
+// @Injectable()
+// export class DashboardService {
+//   async getMatrix(type): Promise<string[] | Error> {
+//     return [];
+//   }
+// }
+
+// export default DashboardService;
+
