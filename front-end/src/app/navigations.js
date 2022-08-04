@@ -2,22 +2,22 @@ export const navigations = [
   {
     name: "Dashboard",
     description: "Lorem ipsum dolor sit.",
-    type: "dropDown",
+    type: "link",
     icon: "i-Bar-Chart",
-    sub: [
-      {
-        icon: "i-Clock-3",
-        name: "Version 1",
-        path: "/dashboard/v1",
-        type: "link",
-      },
-      {
-        icon: "i-Clock-4",
-        name: "Version 2",
-        path: "/dashboard/v2",
-        type: "link",
-      },
-    ],
+    // sub: [
+    //   {
+    //     icon: "i-Clock-3",
+    //     name: "Version 1",
+    //     path: "/dashboard/v1",
+    //     type: "link",
+    //   },
+    //   {
+    //     icon: "i-Clock-4",
+    //     name: "Version 2",
+    //     path: "/dashboard/v2",
+    //     type: "link",
+    //   },
+    // ],
   },
   {
     name: "Matrix",

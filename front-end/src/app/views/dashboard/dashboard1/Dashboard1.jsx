@@ -4,6 +4,7 @@ import PieChart from "app/views/charts/echarts/PieChart";
 import LineChart3 from "app/views/charts/echarts/LineChart3";
 import LineChart1 from "app/views/charts/echarts/LineChart1";
 import LineChart2 from "app/views/charts/echarts/LineChart2";
+// import TopBuyAndSell from "app/views/charts/dashboard/TopBuyAndSell";
 import { Breadcrumb } from "@gull";
 import SimpleCard from "@gull/components/cards/SimpleCard";
 import { Dropdown } from "react-bootstrap";
@@ -268,7 +269,7 @@ class Dashboard1 extends Component {
         <Breadcrumb
           routeSegments={[
             { name: "Dashboard", path: "/dashboard" },
-            { name: "Version 1" }
+            // { name: "Version 1" }
           ]}
         ></Breadcrumb>
         <ResponsiveReactGridLayout
@@ -301,7 +302,7 @@ class Dashboard1 extends Component {
 
           <div key="key_4" className="grid-item">
             <SimpleCard title="This Year Sales" className="grid-item mb-4">
-              <ComparisonChart height="260px"></ComparisonChart>
+              {/* <TopBuyAndSell height="260px" chartID="TopBuyAndSell"/> */}
             </SimpleCard>
           </div>
           <div key="key_5">
