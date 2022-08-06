@@ -6,6 +6,7 @@ import GullLayout from "app/GullLayout/GullLayout";
 import { flatMap } from "lodash";
 import swal from "sweetalert2";
 import { logoutUser } from "app/redux/actions/UserActions";
+import Axios from "axios";
 
 class AuthGuard extends Component {
   constructor(props, context) {
@@ -40,7 +41,10 @@ class AuthGuard extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.authenticated !== this.state.authenticated;
+    return (
+      nextState.authenticated !== this.state.authenticated ||
+      JSON.stringify(nextProps.user) !== JSON.stringify(this.props.user)
+    );
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -79,41 +83,43 @@ class AuthGuard extends Component {
         <GullLayout route={[]}>
           {swal
             .fire({
-              title: "Nhập mã kích hoạt tài khoản được gửi về email",
+              title: "Nhập mã kích hoạt tài khoản",
               input: "text",
               inputAttributes: {
                 autocapitalize: "off",
               },
               showCancelButton: true,
               confirmButtonText: "Xác nhận",
-              cancelButtonText: "Thoát",
+              cancelButtonText: "Đóng",
               backdrop: true,
               showLoaderOnConfirm: true,
+              onClose: (popop) => {
+                this.props.logoutUser();
+              },
               preConfirm: (login) => {
-                return fetch(`//api.github.com/users/${login}`)
+                return Axios.post(`auth/verify`, {
+                  otp: login,
+                })
                   .then((response) => {
-                    if (!response.ok) {
-                      throw new Error(response.statusText);
-                    }
-                    return response.json();
+                    return response;
                   })
                   .catch((error) => {
-                    swal.showValidationMessage(`Request failed: ${error}`);
+                    swal.showValidationMessage(`Kích hoạt không thành công`);
                   });
               },
-              onClose: (popup) => {
-                this.props.logoutUser();
-                swal.close();
-              },
+
               allowOutsideClick: false,
             })
-            .then((result) => {
-              if (result.value) {
-                swal.fire({
-                  title: `${result.value.login}'s avatar`,
-                  imageUrl: result.value.avatar_url,
-                });
+            .then((response) => {
+              if (response.data?.messageCode !== "00") {
+                throw new Error(response.statusText);
               }
+              setTimeout(() => {
+                window.location.reload();
+              }, 1500);
+            })
+            .catch((err) => {
+              swal.showValidationMessage(`Kích hoạt không thành công`);
             })}
         </GullLayout>
       )

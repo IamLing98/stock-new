@@ -18,6 +18,7 @@ export interface IUser {
   oauthId: string;
   authType: string;
   accountType: string;
+  otp: string;
 }
 
 export const UserSchema = new Schema(
@@ -43,6 +44,7 @@ export const UserSchema = new Schema(
     oauthId: String,
     authType: String,
     accountType: String,
+    otp: String,
   },
   { timestamps: true, autoCreate: false },
 );

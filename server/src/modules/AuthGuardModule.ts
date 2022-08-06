@@ -7,6 +7,8 @@ import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from 'src/config/database.module';
 import EmailModule from './Mail';
 import SmsModule from './Sms';
+import { APP_GUARD } from '@nestjs/core';
+import AuthGuard from 'src/middleware/AuthGuard';
 
 @Module({
   imports: [
@@ -16,11 +18,18 @@ import SmsModule from './Sms';
     PassportModule,
     JwtModule.register({
       secret: 'JWT',
-      signOptions: { expiresIn: '60000000s' },
+      signOptions: { expiresIn: '600000000s' },
     }),
   ],
 
   controllers: [Controller],
-  providers: [Service, ...Provider],
+  providers: [
+    Service,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    ...Provider,
+  ],
 })
-export default class AuthModule {}
+export default class AuthGuardModule {}

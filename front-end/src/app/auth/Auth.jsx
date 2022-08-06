@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { setUserData } from "../redux/actions/UserActions";
+import { logoutUser } from "../redux/actions/UserActions";
 import jwtAuthService from "../services/jwtAuthService";
 import localStorageService from "../services/localStorageService";
 import firebaseAuthService from "../services/firebase/firebaseAuthService";
@@ -17,10 +18,13 @@ class Auth extends Component {
     // this.checkFirebaseAuth();
   }
 
-  checkJwtAuth = () => {
-    jwtAuthService.loginWithToken().then((user) => {
-      this.props.setUserData(user);
-    });
+  checkJwtAuth = async () => {
+    jwtAuthService
+      .loginWithToken()
+      .then((user) => {
+        this.props.setUserData(user);
+      })
+      .catch((err) => this.props.logoutUser());
   };
 
   checkFirebaseAuth = () => {
@@ -46,4 +50,4 @@ const mapStateToProps = (state) => ({
   login: state.login,
 });
 
-export default connect(mapStateToProps, { setUserData })(Auth);
+export default connect(mapStateToProps, { setUserData, logoutUser })(Auth);

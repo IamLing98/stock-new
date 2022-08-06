@@ -1,8 +1,6 @@
 import { SET_USER_DATA, REMOVE_USER_DATA, USER_LOGGED_OUT } from "../actions/UserActions";
 
-const initialState = {
-  isLogged: false,
-};
+const initialState = {};
 
 const userReducer = function (state = initialState, action) {
   switch (action.type) {
@@ -18,7 +16,7 @@ const userReducer = function (state = initialState, action) {
       };
     }
     case USER_LOGGED_OUT: {
-      return initialState;
+      return state;
     }
     default: {
       return state;
