@@ -6,6 +6,11 @@ import AuthDTO from 'src/dto/AuthDTO';
 import Error from 'src/utils/error';
 import ReponseData from 'src/utils/response';
 import { HTTP_STATUS_OK } from 'src/utils/message';
+import SignInDTO from 'src/dto/SignInDTO';
+import { makeid } from 'src/utils/dataUtils';
+import constants from 'src/utils/constants';
+import EmailService from './EmailService';
+import SmsService from './SmsService';
 
 @Injectable()
 export class AuthService {
@@ -13,11 +18,40 @@ export class AuthService {
     private jwtService: JwtService,
     @Inject('USER_MODEL')
     private userModel: Model<IUser>,
+    private emailService: EmailService,
+    private smsService: SmsService,
   ) {}
 
-  async login(dto: AuthDTO): Promise<IUser | Error> {
-    const user = await this?.userModel.findOne({ username: dto?.username });
-    console.log('User: ', user?.username);
+  async signup(dto: SignInDTO): Promise<IUser | Error> {
+    const user = await this?.userModel.findOne({
+      $or: [{ username: dto.username }, { email: dto.email }],
+    });
+    if (user) {
+      return new Error('Tài khoản hoặc email đã tồn tại', null);
+    }
+
+    const userModel = await this?.userModel.create({
+      ...dto,
+      username: dto.username.toLocaleLowerCase(),
+      uuid: makeid(10),
+      authType: constants.AUTH_TYPE.NORMAL,
+      role: constants.ROLES.GUEST,
+      accountType: constants.ACCOUNT_TYPES.NORMAL,
+      createdDate: new Date(),
+      updatedDate: new Date(),
+      //  status  = 0, without verified
+      status: 0,
+    });
+    await this?.userModel.init();
+    this.smsService.sendSms(userModel, makeid(6));
+    return new ReponseData(HTTP_STATUS_OK, null, userModel);
+  }
+
+  async signin(dto: AuthDTO): Promise<IUser | Error> {
+    console.log('Account: ', dto);
+    const user = await this?.userModel.findOne({
+      username: dto?.username?.toLocaleLowerCase(),
+    });
     if (!user) {
       return new Error('Tài khoản không tồn tại', null);
     }
@@ -35,7 +69,7 @@ export class AuthService {
       };
       return new ReponseData(HTTP_STATUS_OK, null, payload);
     } else {
-      return new Error('Tài khoản không tồn tại', null);
+      return new Error('Mật khẩu không hợp lệ', null);
     }
   }
 }

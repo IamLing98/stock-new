@@ -1,5 +1,6 @@
 import constants from "app/utils/constants";
-import { axios, AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { NotificationManager } from "react-notifications";
+import { toast } from "react-toastify";
 
 const onRequest = (config) => {
   config.baseURL = constants.BASE_URL;
@@ -13,7 +14,13 @@ const onRequestError = (error) => {
 };
 
 const onResponse = (response) => {
-  //   console.info(`[response] [${JSON.stringify(response)}]`);
+  // console.info(`[response] [${JSON.stringify(response)}]`);
+  if (response?.data?.messageCode !== "00") {
+    toast.error(response?.data?.message);
+  } else {
+    toast.success(response?.data?.message);
+  }
+
   return response;
 };
 

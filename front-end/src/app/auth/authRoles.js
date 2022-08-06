@@ -1,6 +1,6 @@
 export const authRoles = {
-  sa: ['SA'],
-  admin: ['SA', 'ADMIN'],
-  editor: ['SA', 'ADMIN', 'EDITOR'],
-  guest: ['SA', 'ADMIN', 'EDITOR', 'GUEST']
-}
+  sa: ["SA"],
+  admin: ["SA", "Admin"],
+  editor: ["SA", "Admin", "EDITOR"],
+  guest: ["SA", "Admin", "EDITOR", "GUEST"],
+};

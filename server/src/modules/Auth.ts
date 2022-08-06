@@ -5,9 +5,13 @@ import Provider from 'src/providers/UserProvider';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from 'src/config/database.module';
+import EmailModule from './Mail';
+import SmsModule from './Sms';
 
 @Module({
   imports: [
+    EmailModule,
+    SmsModule,
     DatabaseModule,
     PassportModule,
     JwtModule.register({

@@ -9,6 +9,14 @@ export const systemMessage = {
     code: 100,
     message: 'Tài khoản không tồn tại',
   },
+  'Tài khoản hoặc email đã tồn tại': {
+    code: 101,
+    message: 'Tài khoản hoặc email đã tồn tại',
+  },
+  'Mật khẩu không hợp lệ': {
+    code: 102,
+    message: 'Mật khẩu không hợp lệ',
+  },
   HTTP_STATUS_OK: {
     code: '00',
     message: 'Thành công',

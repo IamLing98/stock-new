@@ -18,13 +18,13 @@ class Auth extends Component {
   }
 
   checkJwtAuth = () => {
-    jwtAuthService.loginWithToken().then(user => {
+    jwtAuthService.loginWithToken().then((user) => {
       this.props.setUserData(user);
     });
   };
 
   checkFirebaseAuth = () => {
-    firebaseAuthService.checkAuthStatus(user => {
+    firebaseAuthService.checkAuthStatus((user) => {
       if (user) {
         console.log(user.uid);
         console.log(user.email);
@@ -41,9 +41,9 @@ class Auth extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   setUserData: PropTypes.func.isRequired,
-  login: state.login
+  login: state.login,
 });
 
 export default connect(mapStateToProps, { setUserData })(Auth);

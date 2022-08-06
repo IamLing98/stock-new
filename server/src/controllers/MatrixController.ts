@@ -3,7 +3,7 @@ import Service from 'src/services/MatrixService';
 
 @Controller('stock')
 export class MartrixController {
-  //   constructor(private service: Service) {}
+  constructor(private service: Service) {}
 
   @Get('matrix')
   @HttpCode(200)

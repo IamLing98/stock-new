@@ -15,27 +15,43 @@ class JwtAuthService {
   loginWithEmailAndPassword = ({ username, password }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post("/login", {
+        .post("/auth/signin", {
           password: password,
           username: username,
         })
         .then((res) => {
-          let payload = res?.data?.payload;
-          this.setSession(payload.accessToken);
-          this.setUser(payload?.user); 
-          resolve(payload);
+          console.log(res);
+          if (res?.data?.messageCode === "00") {
+            let payload = res?.data?.payload;
+            this.setSession(payload?.accessToken);
+            this.setUser(payload?.user);
+            resolve(payload);
+          } else {
+            reject();
+          }
+        })
+        .catch((err) => {
+          reject(err);
         });
     });
   };
 
-  loginWithToken = () => {
+  loginWithToken = (token) => {
     return new Promise((resolve, reject) => {
+      let user = localStorage.getItem("auth_user");
+      if (user) {
+        user = JSON.parse(user);
+      }
+      let token = localStorage.getItem("jwt_token");
       setTimeout(() => {
-        resolve(this.user);
+        resolve({
+          user: user,
+          token: token,
+        });
       }, 100);
     }).then((data) => {
       this.setSession(data.token);
-      this.setUser(data);
+      this.setUser(data.user);
       return data;
     });
   };
