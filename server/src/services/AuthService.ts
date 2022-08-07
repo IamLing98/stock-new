@@ -5,13 +5,12 @@ import { comparePassword, IUser } from 'src/models/User';
 import AuthDTO from 'src/dto/AuthDTO';
 import Error from 'src/utils/error';
 import ReponseData from 'src/utils/response';
-import systemMessage, { HTTP_STATUS_OK, LOGIN_OK } from 'src/utils/message';
+import { HTTP_STATUS_OK, LOGIN_OK } from 'src/utils/message';
 import SignInDTO from 'src/dto/SignInDTO';
 import { makeid } from 'src/utils/dataUtils';
 import constants from 'src/utils/constants';
 import EmailService from './EmailService';
 import SmsService from './SmsService';
-import { JsonWebTokenError, JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {

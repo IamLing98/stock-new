@@ -1,6 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import AuthService from 'src/services/AuthService';
 
 const AuthMiddleware = (req: Request, res: Response, next: NextFunction) => {
   //   console.log(

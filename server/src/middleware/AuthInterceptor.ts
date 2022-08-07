@@ -2,7 +2,6 @@ import {
   BadGatewayException,
   CallHandler,
   ExecutionContext,
-  Inject,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';

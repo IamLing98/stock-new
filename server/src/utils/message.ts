@@ -27,6 +27,8 @@ export const systemMessage = {
     code: '00',
     message: 'Đăng nhập thành công',
   },
+
+  // common status for CRUD
   HTTP_STATUS_OK: {
     code: '00',
     message: 'Thành công',

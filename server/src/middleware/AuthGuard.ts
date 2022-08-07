@@ -1,18 +1,10 @@
-import {
-  Injectable,
-  CanActivate,
-  ExecutionContext,
-  Inject,
-} from '@nestjs/common';
-import { Request } from 'express';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import AuthService from 'src/services/AuthService';
 
 @Injectable()
 class AuthGuard implements CanActivate {
-  constructor(private service: AuthService) {
-    console.log('contructor running'); //
-  }
+  constructor(private service: AuthService) {}
 
   async validateAuthFromRequest(request) {
     const headers = request.headers;
