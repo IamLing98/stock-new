@@ -1,27 +1,33 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Req,
-  Res,
-  HttpCode,
-} from '@nestjs/common';
-import { Abstract } from 'src/models/AbtractInterface';
+import { Controller, Post, Req, Res, HttpCode } from '@nestjs/common';
 import Service from 'src/services/AuthService';
-import { IUser } from 'src/models/User';
-import AuthDTO from 'src/dto/AuthDTO';
 
-@Controller('login')
+@Controller('auth')
 export class AuthController {
   constructor(private service: Service) {}
 
-  @Post()
+  @Post('signup')
   @HttpCode(200)
-  login(@Req() req, @Res({ passthrough: true }) res): any {
-    console.log('request login', req?.body);
-    const rs = this.service.login(req?.body);
+  signin(@Req() req, @Res({ passthrough: true }) res): any {
+    const rs = this.service.signup(req?.body);
     return rs;
+  }
+
+  @Post('signin')
+  @HttpCode(200)
+  signup(@Req() req, @Res({ passthrough: true }) res): any {
+    return this.service.signin(req?.body);
+  }
+
+  @Post('signinToken')
+  @HttpCode(200)
+  signinToken(@Req() req, @Res({ passthrough: true }) res): any {
+    return this.service.signinToken(req?.user);
+  }
+
+  @Post('verify')
+  @HttpCode(200)
+  verify(@Req() req, @Res({ passthrough: true }) res): any {
+    return this.service.verify(req?.user, req?.body);
   }
 }
 

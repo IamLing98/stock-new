@@ -3,10 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import AuthModule from 'src/modules/Auth';
 import MatrixModule from 'src/modules/Matrix';
-import DashBoardModule from './modules/Dashboard';
+import MailModule from 'src/modules/Mail';
+import AuthGuardModule from 'src/modules/AuthGuardModule';
 
 @Module({
-  imports: [AuthModule, MatrixModule, DashBoardModule],
+  imports: [AuthModule, MatrixModule, MailModule, AuthGuardModule],
   controllers: [AppController],
   providers: [AppService],
 })

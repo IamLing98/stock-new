@@ -14,6 +14,8 @@ import RootRoutes from "./RootRoutes";
 import AppContext from "./appContext";
 import { Loading } from "@gull";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/app/app.scss";
 
 import { setupInterceptorsTo } from "./services";
@@ -26,6 +28,7 @@ function App() {
       <Provider store={Store}>
         <Auth>
           <Suspense fallback={<Loading></Loading>}>
+            <ToastContainer />
             <Router history={history}>{renderRoutes(RootRoutes)}</Router>
           </Suspense>
         </Auth>

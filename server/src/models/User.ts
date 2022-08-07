@@ -15,7 +15,10 @@ export interface IUser {
   uuid: string;
   phoneNumber: string;
   lastAccess: Date;
-  account: string;
+  oauthId: string;
+  authType: string;
+  accountType: string;
+  otp: string;
 }
 
 export const UserSchema = new Schema(
@@ -38,25 +41,16 @@ export const UserSchema = new Schema(
     uuid: String,
     phoneNumber: String,
     lastAccess: Date,
-    account: {
-      verification: {
-        verified: {
-          type: Boolean,
-          default: false,
-        },
-        token: String,
-        expiresIn: Date,
-      },
-      resetPassword: {
-        token: String,
-        expiresIn: Date,
-      },
-    },
+    oauthId: String,
+    authType: String,
+    accountType: String,
+    otp: String,
   },
   { timestamps: true, autoCreate: false },
 );
 
 UserSchema.pre('save', function (next) {
+  console.log('Pre save user:');
   const user = this;
 
   // Make sure not to rehash the password if it is already hashed

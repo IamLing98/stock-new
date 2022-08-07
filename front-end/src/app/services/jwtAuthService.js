@@ -1,42 +1,55 @@
 import axios from "axios";
 import localStorageService from "./localStorageService";
-
 class JwtAuthService {
-  user = {
-    userId: "1",
-    role: "ADMIN",
-    displayName: "Watson Joyce",
-    email: "watsonjoyce@gmail.com",
-    photoURL: "/assets/images/face-7.jpg",
-    age: 25,
-    token: "faslkhfh423oiu4h4kj432rkj23h432u49ufjaklj423h4jkhkjh",
-  };
-
   loginWithEmailAndPassword = ({ username, password }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post("/login", {
+        .post("/auth/signin", {
           password: password,
           username: username,
         })
         .then((res) => {
-          let payload = res?.data?.payload;
-          this.setSession(payload.accessToken);
-          this.setUser(payload?.user); 
-          resolve(payload);
+          console.log(res);
+          if (res?.data?.messageCode === "00") {
+            let payload = res?.data?.payload;
+            this.setSession(payload?.accessToken);
+            this.setUser(payload?.user);
+            resolve({
+              token: payload?.accessToken,
+              user: payload.user,
+            });
+          } else {
+            reject();
+          }
+        })
+        .catch((err) => {
+          reject(err);
         });
     });
   };
 
-  loginWithToken = () => {
+  loginWithToken = (token) => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.user);
-      }, 100);
-    }).then((data) => {
-      this.setSession(data.token);
-      this.setUser(data);
-      return data;
+      axios.defaults.headers.authorization = "Bearer " + localStorage.getItem("jwt_token");
+      return axios
+        .post("/auth/signinToken", {})
+        .then((res) => {
+          let data = res.data.payload;
+          this.setSession(data.accessToken);
+          this.setUser(data.user);
+          resolve({
+            ...data.user,
+            token: data.accessToken,
+          });
+          return {
+            ...data.user,
+            token: data.accessToken,
+          };
+        })
+        .catch((err) => {
+          this.logout();
+          reject();
+        });
     });
   };
 
@@ -48,16 +61,18 @@ class JwtAuthService {
   setSession = (token) => {
     if (token) {
       localStorage.setItem("jwt_token", token);
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     } else {
       localStorage.removeItem("jwt_token");
       delete axios.defaults.headers.common["Authorization"];
     }
   };
+
   setUser = (user) => {
     localStorageService.setItem("auth_user", user);
   };
+
   removeUser = () => {
+    localStorage.removeItem("jwt_token");
     localStorage.removeItem("auth_user");
   };
 }

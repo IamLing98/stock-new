@@ -228,7 +228,7 @@ class Layout1Header extends Component {
               </DropdownToggle>
               <DropdownMenu>
                 <div className="dropdown-header">
-                  <i className="i-Lock-User mr-1"></i> Timothy Carlson
+                  <i className="i-Lock-User mr-1"></i> {this.props?.user?.fullName}
                 </div>
                 <Link to="/" className="dropdown-item cursor-pointer">
                   Thông tin tài khoản

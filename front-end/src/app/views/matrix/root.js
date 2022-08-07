@@ -27,8 +27,8 @@ const Matrix = (props) => {
     await axios
       .get(`stock/matrix`)
       .then(async (res) => {
-        await setDefaultMaxtrixData(res?.data?.data?.data);
-        await setMatrixData(res?.data?.data?.data);
+        await setDefaultMaxtrixData(res?.data?.payload?.data);
+        await setMatrixData(JSON.parse(res?.data?.payload?.data));
         await setLoading(false);
       })
       .catch((err) => {
