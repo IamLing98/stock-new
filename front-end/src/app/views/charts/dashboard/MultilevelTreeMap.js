@@ -5,76 +5,17 @@ import axios from 'axios';
 
 // material-ui
 import { Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import MainCard from './../../../../ui-component/cards/MainCard';
-import { gridSpacing } from '../../../../store/constant';
-
 import { FoamTree } from '@carrotsearch/foamtree';
 
 import Tooltip from './Poper';
 
-import './style.css';
-import config from '../../../../config';
-import { padding } from '@mui/system';
-
-// style constant
-const useStyles = makeStyles((theme) => ({
-    card: {
-        backgroundColor: '#fff',
-        color: '#fff',
-        overflow: 'hidden',
-        position: 'relative'
-    },
-    content: {
-        padding: '20px !important'
-    },
-    avatar: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.largeAvatar,
-        backgroundColor: theme.palette.secondary[800],
-        marginTop: '8px'
-    },
-    avatarRight: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.mediumAvatar,
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary[200],
-        zIndex: 1
-    },
-    cardHeading: {
-        fontSize: '2.125rem',
-        fontWeight: 500,
-        marginRight: '8px',
-        marginTop: '14px',
-        marginBottom: '6px'
-    },
-    subHeading: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        color: theme.palette.secondary[200]
-    },
-    avatarCircle: {
-        cursor: 'pointer',
-        ...theme.typography.smallAvatar,
-        backgroundColor: theme.palette.secondary[200],
-        color: theme.palette.secondary.dark
-    },
-    circleIcon: {
-        transform: 'rotate3d(1, 1, 1, 45deg)'
-    },
-    menuItem: {
-        marginRight: '14px',
-        fontSize: '1.25rem'
-    }
-}));
-
-
+import Skeleton from "react-loading-skeleton";
+import { alternativeColor } from '@amcharts/amcharts5/.internal/core/util/Utils';
 
 var tooltip = (function () {
     var tip = new Tooltip('Detail', { auto: true });
@@ -84,13 +25,13 @@ var tooltip = (function () {
     var pageX, pageY;
     var currentGroup;
 
-    function hide() {
+    const hide = () =>{
         tip.hide();
         shown = false;
         window.clearTimeout(timeout);
     }
 
-    function show() {
+    const show = () => {
         if (currentGroup && currentGroup.label) {
             // Set some example content on the tooltip.
             tip.content(
@@ -118,7 +59,7 @@ var tooltip = (function () {
         }
     }
 
-    function group(g) {
+    const group = (g) => {
         currentGroup = g;
     }
 
@@ -144,9 +85,8 @@ var tooltip = (function () {
 })();
 
 
-const MultilevelTreeMap = (props) => {
+const MultilevelTreeMap = ({ chartID, height }) => {
     const account = useSelector((state) => state.account);
-    const chartID = props.chartID;
     const [chartData, setChartData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [select, setSelect] = useState('all');
@@ -168,14 +108,14 @@ const MultilevelTreeMap = (props) => {
 
     const getData = async () => {
         await axios
-            .get(config.API_SERVER + `stock/heapTree`, { headers: { Authorization: `Bearer ${account.token}` } })
+        .get(`/dashboard/headmap`)
             .then(async (res) => {
                 let data = res?.data;
-                await setChartData(data.data);
+                await setChartData(data.payload);
                 if (chartID === 'nganh') {
-                    await setLstSelect([...new Set(data.data.map((val) => val._in_))])
+                    await setLstSelect([...new Set(data.map((val) => val._in_))])
                 } else {
-                    await setLstSelect([...new Set(data.data.map((val) => val.catID == 1 ? 'HOSE' : val.catID == 2 ? 'HNX' : 'UPCOM'))])
+                    await setLstSelect([...new Set(data.map((val) => val.catID == 1 ? 'HOSE' : val.catID == 2 ? 'HNX' : 'UPCOM'))])
                 }
             })
             .catch((err) => err);
@@ -260,6 +200,7 @@ const MultilevelTreeMap = (props) => {
             onGroupExposureChanging: tooltip.hide,
             onGroupOpenOrCloseChanging: tooltip.hide,
             onGroupHover: function (event) {
+                // alert(JSON.stringify(event.group));
                 tooltip.group(event.group);
             }
         });
@@ -267,6 +208,7 @@ const MultilevelTreeMap = (props) => {
 
     //Process data
     const processData = (chartID, select) => {
+
         var groups = [];
 
         switch (chartID) {
@@ -383,9 +325,9 @@ const MultilevelTreeMap = (props) => {
         return groups;
     };
 
-    return (
-        <React.Fragment>
-            <Grid container direction="row">
+    // return (
+        // <React.Fragment>
+            {/* <Grid container direction="row">
                 <Grid  item xs={10} style={{ height: 400 }} id={chartID}></Grid>
                 <Grid item xs={2}>
                         <FormControl variant='standard' sx={{ m: 1, minWidth: 120, maxWidth:'100%' }} size="small">
@@ -407,7 +349,16 @@ const MultilevelTreeMap = (props) => {
                         </FormControl>
                 </Grid>
             </Grid>
-        </React.Fragment>
-    );
+        </React.Fragment> */}
+    //         <div>
+
+    //         </div>
+        
+    // );
+    return (
+        <div>
+          <div style={{height:height, padding:25}} id={chartID}></div>
+        </div>
+      );
 };
 export default MultilevelTreeMap;

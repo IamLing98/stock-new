@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
 import { DashboardService } from '../services/DashboardService';
 
 @Controller('dashboard')
@@ -10,10 +10,15 @@ export class DashboardController {
     return "Hello Dashboard";
   }
 
-  // @Get(':code')
-  // getDataBCTC(@Param('code') code: string): any {
-  //   return this.stockService.getDataBCTC(code);
-  // }
+  @Get('/heapMap')
+  getDataBCTC(): any {
+    return this.dashboardService.getHeapTreeData();
+  }
+
+  @Get('/topMarketInfluence/:code')
+  getTopMarketInfluence(@Param('code') code): any {
+    return this.dashboardService.getTopMarketInfluence(code);
+  }
   
 }
 export default DashboardController;

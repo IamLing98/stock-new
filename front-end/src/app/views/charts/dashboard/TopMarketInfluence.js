@@ -2,9 +2,7 @@ import React, { useLayoutEffect, useEffect, useState } from 'react';
 
 // material-ui
 import { Grid, Card, Box, MenuItem, TextField, Typography, useTheme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 
-import MainCard from '../../../../ui-component/cards/MainCard';
 
 import * as am5 from '@amcharts/amcharts5';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
@@ -13,60 +11,7 @@ import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import moment from 'moment';
 
-// style constant
-const useStyles = makeStyles((theme) => ({
-    card: {
-        backgroundColor: '#fff',
-        color: '#fff',
-        overflow: 'hidden',
-        position: 'relative'
-    },
-    content: {
-        padding: '20px !important'
-    },
-    avatar: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.largeAvatar,
-        backgroundColor: theme.palette.secondary[800],
-        marginTop: '8px'
-    },
-    avatarRight: {
-        ...theme.typography.commonAvatar,
-        ...theme.typography.mediumAvatar,
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary[200],
-        zIndex: 1
-    },
-    cardHeading: {
-        fontSize: '2.125rem',
-        fontWeight: 500,
-        marginRight: '8px',
-        marginTop: '14px',
-        marginBottom: '6px'
-    },
-    subHeading: {
-        fontSize: '1rem',
-        fontWeight: 500,
-        color: theme.palette.secondary[200]
-    },
-    avatarCircle: {
-        cursor: 'pointer',
-        ...theme.typography.smallAvatar,
-        backgroundColor: theme.palette.secondary[200],
-        color: theme.palette.secondary.dark
-    },
-    circleIcon: {
-        transform: 'rotate3d(1, 1, 1, 45deg)'
-    },
-    menuItem: {
-        marginRight: '14px',
-        fontSize: '1.25rem'
-    }
-}));
-
-const TopMarketInfluence = (props) => {
-    const classes = useStyles();
-    const chartID = props.chartID;
+const TopMarketInfluence = ({chartID, height}) => {
     const [dataChart, setDataChart] = useState([]);
 
     //tạo chart
@@ -177,11 +122,11 @@ const TopMarketInfluence = (props) => {
     const processData = () => {
         const data = [];
 
-        dataChart?.sort((f, s) => s.point - f.point).slice(0,20).forEach((item) => {
+        dataChart.sort((f, s) => s.point - f.point).slice(0,20).forEach((item) => {
             var obj = { type: 'Positive', code: item.symbol, value: item.point, vol: item.vol, price: item.price };
             data.push(obj);
         });
-        dataChart?.sort((f, s) => s.point - f.point).slice(dataChart.length-20,dataChart.length).forEach((item) => {
+        dataChart.sort((f, s) => s.point - f.point).slice(dataChart.length-20,dataChart.length).forEach((item) => {
             var obj = { type: 'Minus', code: item.symbol, value: item.point, vol: item.vol, price: item.price };
             data.push(obj);
         });
@@ -191,7 +136,7 @@ const TopMarketInfluence = (props) => {
     return (
         <React.Fragment>
                 <Grid container direction="column">
-                    <Grid style={{ height: 450 }} id={chartID}></Grid>
+                    <Grid style={{ height: height }} id={chartID}></Grid>
                 </Grid>
         </React.Fragment>
     );
