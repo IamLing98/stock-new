@@ -1,32 +1,39 @@
 import { Injectable } from '@nestjs/common';
 
-// import mongodb from 'mongodb';
 import constants from 'src/utils/constants';
-import { HTTP_STATUS_OK } from 'src/utils/message';
+import { CONNECT_MONGO_FAILED, HTTP_STATUS_OK } from 'src/utils/message';
 import ReponseData from 'src/utils/response';
+import Error from 'src/utils/error';
 
-// const MongoClient = mongodb.MongoClient;
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
 @Injectable()
 export class MatrixService {
   async getMatrix(type): Promise<any | Error> {
-    // try {
-    //   await MongoClient.connect(constants.MONGO_URL, async function (err, db) {
-    //     if (err) throw err;
-    //     const dbo = db.db('stock-app');
-    //     const rs = await dbo
-    //       .collection('matrix-data')
-    //       .findOne({}, { sort: { _id: -1 } }, async (err, data) => {
-    //         return {
-    //           id: data._id,
-    //           data: JSON.parse(data.data),
-    //         };
-    //       });
-    //     return new ReponseData(HTTP_STATUS_OK, null, rs);
-    //   });
-    // } catch (ex) {
-    //   console.log('Find error', ex);
-    // }
+    try {
+      const client = await MongoClient.connect(constants.MONGO_URL, {
+        useNewUrlParser: true,
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      if (!client) {
+        return new Error(CONNECT_MONGO_FAILED, null);
+      }
+      try {
+        const dbo = client.db('stock-app');
+        const collection = dbo.collection('matrix-data');
+        const query = {};
+        const sort = { sort: { _id: -1 } };
+        const res = await collection.findOne(query, sort);
+        return new ReponseData(HTTP_STATUS_OK, null, res);
+      } catch (ex) {
+        console.error(ex);
+      }
+    } catch (ex) {
+      console.error('getMatrix', ex);
+    }
   }
 }
 

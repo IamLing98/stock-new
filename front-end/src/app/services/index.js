@@ -18,7 +18,7 @@ const onResponse = (response) => {
   if (response?.data?.messageCode !== "00") {
     toast.error(response?.data?.message);
   } else {
-    toast.success(response?.data?.message);
+    // toast.success(response?.data?.message);
   }
 
   return response;

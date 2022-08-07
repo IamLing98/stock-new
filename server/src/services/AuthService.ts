@@ -76,7 +76,6 @@ export class AuthService {
   }
 
   async signinToken(dto: IUser): Promise<IUser | Error> {
-    console.log('Account: ', dto);
     const user = await this?.userModel.findOne({
       username: dto?.username?.toLocaleLowerCase(),
     });

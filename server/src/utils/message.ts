@@ -3,6 +3,7 @@ export const HTTP_STATUS_CREATED = 'HTTP_STATUS_CREATED';
 export const HTTP_STATUS_UPDATED = 'HTTP_STATUS_UPDATED';
 export const HTTP_STATUS_DELETED = 'HTTP_STATUS_DELETED';
 export const LOGIN_OK = 'LOGIN_OK';
+export const CONNECT_MONGO_FAILED = 'CONNECT_MONGO_FAILED';
 
 export const systemMessage = {
   // message for auth, start with 100
@@ -41,6 +42,12 @@ export const systemMessage = {
   HTTP_STATUS_DELETED: {
     code: '03',
     message: 'Xoá thành công',
+  },
+
+  // Database message, start with 900
+  CONNECT_MONGO_FAILED: {
+    code: '900',
+    message: 'Kết nối csdl không thành công',
   },
 };
 

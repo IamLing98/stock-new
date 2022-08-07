@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { AgGridReact } from "ag-grid-react";
 import { LicenseManager } from "ag-grid-enterprise";
 import ChildMessageRenderer from "./ChildMessageRenderer";
+import CommonFilter from "./utils/commonFilter";
 import AG_GRID_LOCALE_ZZZ from "./locale.zzz";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
@@ -9,11 +10,12 @@ import "./style.scss";
 
 LicenseManager.setLicenseKey("<enterprisekey>");
 
-const columnsDfault = [
+const columnsDefault = [
   {
     title: "Ticker",
     field: "Ticker",
     type: "string",
+    filter: CommonFilter,
     customFilterAndSearch: (term, rowData) => {
       return console.log(term, rowData, ["Ticker"], "string");
     },
@@ -1208,13 +1210,14 @@ export default function App(props) {
 
   const [state, setState] = useState({
     modal: false,
-    columnDefs: columnsDfault?.map((item) => {
+    columnDefs: columnsDefault?.map((item) => {
       return {
         headerName: item?.title,
         field: item?.field,
         minWidth: 120,
         cellRenderer: "childMessageRenderer",
         floatingFilter: true,
+        filter: item.filter,
         cellStyle: (params) => {
           let style = { border: "1px solid white" };
           if (params?.value?.background) {
@@ -1302,6 +1305,7 @@ export default function App(props) {
   });
 
   useEffect(() => {
+    console.log(" props.data", props.data);
     setState({ ...state, rowData: props.data });
   }, [JSON.stringify(props.data)]);
 

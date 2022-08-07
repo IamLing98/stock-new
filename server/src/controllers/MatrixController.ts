@@ -8,9 +8,7 @@ export class MartrixController {
   @Get('matrix')
   @HttpCode(200)
   get(@Req() req, @Res({ passthrough: true }) res): any {
-    console.log('request login', req?.body);
-    // const rs = this.service.login(req?.body);
-    return [];
+    return this.service.getMatrix(req?.body);
   }
 
   @Post()
