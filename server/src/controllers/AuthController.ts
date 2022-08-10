@@ -8,8 +8,7 @@ export class AuthController {
   @Post('signup')
   @HttpCode(200)
   signin(@Req() req, @Res({ passthrough: true }) res): any {
-    const rs = this.service.signup(req?.body);
-    return rs;
+    return this.service.signup(req?.body);
   }
 
   @Post('signin')

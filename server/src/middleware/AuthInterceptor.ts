@@ -6,7 +6,6 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { catchError, throwError } from 'rxjs';
-import { AppService } from 'src/app.service';
 import AuthService from 'src/services/AuthService';
 
 @Injectable()

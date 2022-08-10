@@ -138,9 +138,9 @@ class Layout1Header extends Component {
 
         <div className="d-none d-lg-flex align-items-center">
           <Dropdown className="mr-3">
-            <Dropdown.Toggle as="span" className="toggle-hidden cursor-pointer">
+            {/* <Dropdown.Toggle as="span" className="toggle-hidden cursor-pointer">
               Mega Menu
-            </Dropdown.Toggle>
+            </Dropdown.Toggle> */}
 
             <div className="mega-menu">
               <Dropdown.Menu>

@@ -20,33 +20,33 @@ class Layout3Header extends Component {
       {
         icon: "i-Shop-4",
         link: "#",
-        text: "Home"
+        text: "Home",
       },
       {
         icon: "i-Library",
         link: "#",
-        text: "Ui Kits"
+        text: "Ui Kits",
       },
       {
         icon: "i-Drop",
         link: "#",
-        text: "Apps"
+        text: "Apps",
       },
       {
         icon: "i-File-Clipboard-File--Text",
         link: "#",
-        text: "Form"
+        text: "Form",
       },
       {
         icon: "i-Checked-User",
         link: "#",
-        text: "Sessions"
+        text: "Sessions",
       },
       {
         icon: "i-Ambulance",
         link: "#",
-        text: "Support"
-      }
+        text: "Support",
+      },
     ],
     notificationList: [
       {
@@ -55,7 +55,7 @@ class Layout3Header extends Component {
         description: "James: Hey! are you busy?",
         time: "2019-10-30T02:10:18.931Z",
         color: "primary",
-        status: "New"
+        status: "New",
       },
       {
         icon: "i-Receipt-3",
@@ -63,7 +63,7 @@ class Layout3Header extends Component {
         description: "1 Headphone, 3 iPhone",
         time: "2019-03-10T02:10:18.931Z",
         color: "success",
-        status: "New"
+        status: "New",
       },
       {
         icon: "i-Empty-Box",
@@ -71,7 +71,7 @@ class Layout3Header extends Component {
         description: "1 Headphone, 3 iPhone",
         time: "2019-05-10T02:10:18.931Z",
         color: "danger",
-        status: "3"
+        status: "3",
       },
       {
         icon: "i-Data-Power",
@@ -79,9 +79,9 @@ class Layout3Header extends Component {
         description: "Server rebooted successfully",
         time: "2019-03-10T02:10:18.931Z",
         color: "success",
-        status: "3"
-      }
-    ]
+        status: "3",
+      },
+    ],
   };
 
   handleMenuClick = () => {
@@ -90,9 +90,9 @@ class Layout3Header extends Component {
       merge({}, settings, {
         layout3Settings: {
           leftSidebar: {
-            open: !settings.layout3Settings.leftSidebar.open
-          }
-        }
+            open: !settings.layout3Settings.leftSidebar.open,
+          },
+        },
       })
     );
   };
@@ -110,9 +110,9 @@ class Layout3Header extends Component {
       merge({}, settings, {
         layout3Settings: {
           searchBox: {
-            open: true
-          }
-        }
+            open: true,
+          },
+        },
       })
     );
   };
@@ -136,9 +136,9 @@ class Layout3Header extends Component {
 
           <div className="d-none d-lg-flex align-items-center">
             <Dropdown className="mr-3">
-              <Dropdown.Toggle variant="link" id="dropdown-basic">
+              {/* <Dropdown.Toggle variant="link" id="dropdown-basic">
                 Mega Menu
-              </Dropdown.Toggle>
+              </Dropdown.Toggle> */}
 
               <div className="mega-menu">
                 <Dropdown.Menu>
@@ -148,11 +148,7 @@ class Layout3Header extends Component {
             </Dropdown>
 
             <div className="search-bar">
-              <input
-                type="text"
-                placeholder="Search"
-                onFocus={this.handleSearchBoxOpen}
-              />
+              <input type="text" placeholder="Search" onFocus={this.handleSearchBoxOpen} />
               <i className="search-icon text-muted i-Magnifi-Glass1"></i>
             </div>
           </div>
@@ -168,14 +164,11 @@ class Layout3Header extends Component {
 
             <Dropdown>
               <Dropdown.Toggle variant="link" className="toggle-hidden">
-                <i
-                  className="i-Safe-Box text-muted header-icon"
-                  role="button"
-                ></i>
+                <i className="i-Safe-Box text-muted header-icon" role="button"></i>
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 <div className="menu-icon-grid">
-                  {shorcutMenuList.map(menu => (
+                  {shorcutMenuList.map((menu) => (
                     <Link key={menu.text} to={menu.link}>
                       <i className={menu.icon}></i> {menu.text}
                     </Link>
@@ -206,9 +199,7 @@ class Layout3Header extends Component {
                     <div className="notification-details flex-grow-1">
                       <p className="m-0 d-flex align-items-center">
                         <span>{note.title}</span>
-                        <span
-                          className={`badge badge-pill badge-${note.color} ml-1 mr-1`}
-                        >
+                        <span className={`badge badge-pill badge-${note.color} ml-1 mr-1`}>
                           {note.status}
                         </span>
                         <span className="flex-grow-1"></span>
@@ -216,9 +207,7 @@ class Layout3Header extends Component {
                           {getTimeDifference(new Date(note.time))} ago
                         </span>
                       </p>
-                      <p className="text-small text-muted m-0">
-                        {note.description}
-                      </p>
+                      <p className="text-small text-muted m-0">{note.description}</p>
                     </div>
                   </div>
                 ))}
@@ -241,16 +230,9 @@ class Layout3Header extends Component {
                   <div className="dropdown-header">
                     <i className="i-Lock-User mr-1"></i> Timothy Carlson
                   </div>
-                  <span className="dropdown-item cursor-pointer">
-                    Account settings
-                  </span>
-                  <span className="dropdown-item cursor-pointer">
-                    Billing history
-                  </span>
-                  <span
-                    className="dropdown-item cursor-pointer"
-                    onClick={this.props.logoutUser}
-                  >
+                  <span className="dropdown-item cursor-pointer">Account settings</span>
+                  <span className="dropdown-item cursor-pointer">Billing history</span>
+                  <span className="dropdown-item cursor-pointer" onClick={this.props.logoutUser}>
                     Sign out
                   </span>
                 </DropdownMenu>
@@ -263,7 +245,7 @@ class Layout3Header extends Component {
           <div
             className={classList({
               "header-topnav": true,
-              open: settings.layout3Settings.leftSidebar.open
+              open: settings.layout3Settings.leftSidebar.open,
             })}
           >
             <div className="container-fluid">
@@ -286,12 +268,8 @@ class Layout3Header extends Component {
                               parent.sub.map((child, i) => (
                                 <li key={i}>
                                   <Link to={child.path || "#"}>
-                                    <i
-                                      className={`nav-icon mr-2 ${child.icon}`}
-                                    ></i>
-                                    <span className="item-name">
-                                      {child.name}
-                                    </span>
+                                    <i className={`nav-icon mr-2 ${child.icon}`}></i>
+                                    <span className="item-name">{child.name}</span>
                                   </Link>
                                 </li>
                               ))}
@@ -312,16 +290,16 @@ class Layout3Header extends Component {
 
 Layout3Header.propTypes = {
   setLayoutSettings: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired
+  settings: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   setLayoutSettings: PropTypes.func.isRequired,
-  settings: state.layout.settings
+  settings: state.layout.settings,
 });
 
 export default withRouter(
   connect(mapStateToProps, {
-    setLayoutSettings
+    setLayoutSettings,
   })(Layout3Header)
 );

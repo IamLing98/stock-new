@@ -13,7 +13,7 @@ LicenseManager.setLicenseKey("<enterprisekey>");
 const columnsDefault = [
   {
     title: "Ticker",
-    field: "Ticker",
+    field: "TickerSearch",
     type: "string",
     filter: CommonFilter,
     customFilterAndSearch: (term, rowData) => {
@@ -43,7 +43,7 @@ const columnsDefault = [
   },
   {
     title: "Date",
-    field: "Date/Time",
+    field: "Date/TimeSearch",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       return console.log(term, rowData, "Date/Time", "string");
@@ -64,7 +64,7 @@ const columnsDefault = [
   },
   {
     title: "Exchange",
-    field: "Exchange",
+    field: "ExchangeSearch",
     type: "string",
     customSort: (a, b) => a?.ExchangeName?.value?.localeCompare(b?.ExchangeName?.value),
     lookup: { HOSE: "HOSE", HNX: "HNX", UPCOM: "UpCOM" },
@@ -87,7 +87,7 @@ const columnsDefault = [
   },
   {
     title: "Type",
-    field: "Type",
+    field: "TypeSearch",
     type: "string",
     customSort: (a, b) => a?.ExchangeName?.value?.localeCompare(b?.ExchangeName?.value),
     customFilterAndSearch: (term, rowData) => {
@@ -119,7 +119,7 @@ const columnsDefault = [
   },
   {
     title: "Sector",
-    field: "Sector",
+    field: "SectorSearch",
     type: "string",
     lookup: {
       ChungKhoan: "Chứng khoán",
@@ -167,7 +167,7 @@ const columnsDefault = [
   },
   {
     title: "DtScore",
-    field: "DeltaScore",
+    field: "DeltaScoreSearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -184,7 +184,7 @@ const columnsDefault = [
   },
   {
     title: "DtMK",
-    field: "DeltaMK",
+    field: "DeltaMKSearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -201,7 +201,7 @@ const columnsDefault = [
   },
   {
     title: "T-9",
-    field: "T-9",
+    field: "T-9Search",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 5", "Column 6", "Column 7", "Column 8", "T-9"];
@@ -276,7 +276,7 @@ const columnsDefault = [
   },
   {
     title: "T-8",
-    field: "T-8",
+    field: "T-8Search",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 10", "Column 11", "Column 12", "Column 13", "T-8"];
@@ -347,7 +347,7 @@ const columnsDefault = [
   },
   {
     title: "T-7",
-    field: "T-7",
+    field: "T-7Search",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 15", "Column 16", "Column 17", "Column 18", "T-7"];
@@ -419,7 +419,7 @@ const columnsDefault = [
   },
   {
     title: "T-6",
-    field: "T-6",
+    field: "T-6Search",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 20", "Column 21", "Column 22", "Column 23", "T-6"];
@@ -491,7 +491,7 @@ const columnsDefault = [
   },
   {
     title: "T-5",
-    field: "T-5",
+    field: "T-5Search",
     type: "string",
     sorting: false,
     customFilterAndSearch: (term, rowData) => {
@@ -563,7 +563,7 @@ const columnsDefault = [
   },
   {
     title: "T-4",
-    field: "T-4",
+    field: "T-4Search",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 30", "Column 31", "Column 32", "Column 33", "T-4"];
       return console.log(term, rowData, fields, "string");
@@ -635,7 +635,7 @@ const columnsDefault = [
   },
   {
     title: "T-3",
-    field: "T-3",
+    field: "T-3Search",
     type: "string",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 35", "Column 36", "Column 37", "Column 38", "T-3"];
@@ -706,7 +706,7 @@ const columnsDefault = [
   },
   {
     title: "T-2",
-    field: "T-2",
+    field: "T-2Search",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 40", "Column 41", "Column 42", "Column 43", "T-2"];
       return console.log(term, rowData, fields, "string");
@@ -777,7 +777,7 @@ const columnsDefault = [
   },
   {
     title: "T-1",
-    field: "T-1",
+    field: "T-1Search",
     type: "string",
     sorting: false,
     customFilterAndSearch: (term, rowData) => {
@@ -849,7 +849,7 @@ const columnsDefault = [
   },
   {
     title: "T-0",
-    field: "T-0",
+    field: "T-0Search",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["Column 50", "Column 51", "Column 52", "Column 53", "Column 54", "Column 55", "T-0"];
       return console.log(term, rowData, fields, "string");
@@ -929,7 +929,7 @@ const columnsDefault = [
   },
   {
     title: "Close",
-    field: "Close",
+    field: "CloseSearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -946,7 +946,7 @@ const columnsDefault = [
   },
   {
     title: "Score",
-    field: "SCORE",
+    field: "SCORESearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -977,7 +977,7 @@ const columnsDefault = [
   },
   {
     title: "Maker",
-    field: "MKControl",
+    field: "MKControlSearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -994,7 +994,7 @@ const columnsDefault = [
   },
   {
     title: "Vol",
-    field: "Volume",
+    field: "VolumeSearch",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -1012,7 +1012,7 @@ const columnsDefault = [
   },
   {
     title: "Daily Radar",
-    field: "Daily Radar",
+    field: "DailyRadarSearch",
     customFilterAndSearch: (term, rowData) => {
       let fields = ["G21", "G22", "G23", "G24", "G25", "G26"];
       return console.log(term, rowData, fields, "string");
@@ -1091,7 +1091,7 @@ const columnsDefault = [
   },
   {
     title: "%Day",
-    field: "Change(%)",
+    field: "Change(%)Search",
     type: "string",
     align: "right",
     customFilterAndSearch: (term, rowData) => {
@@ -1108,7 +1108,7 @@ const columnsDefault = [
   },
   {
     title: "Trend%",
-    field: "TrendCycle(%)",
+    field: "TrendCycle(%)Search",
     type: "string",
     align: "right",
     sorting: false,
@@ -1134,7 +1134,7 @@ const columnsDefault = [
   },
   {
     title: "L-Trend%",
-    field: "Longtrend(%)",
+    field: "Longtrend(%)Search",
     type: "string",
     align: "right",
     sorting: true,
@@ -1163,7 +1163,7 @@ const columnsDefault = [
   },
   {
     title: "Distribution",
-    field: "TrendCycle(%)",
+    field: "DistributionSearch",
     type: "string",
     align: "right",
     sorting: false,
@@ -1199,6 +1199,15 @@ const columnsDefault = [
           >
             {row["G32"] ? row["G32"]?.value : ""}
           </p>
+          <p
+            className="p-inrow"
+            style={{
+              color: row["G33"]?.color,
+              marginTop: "10px",
+            }}
+          >
+            {row["G33"] ? row["G33"]?.value : ""}
+          </p>
         </div>
       );
     },
@@ -1217,7 +1226,6 @@ export default function App(props) {
         minWidth: 120,
         cellRenderer: "childMessageRenderer",
         floatingFilter: true,
-        filter: item.filter,
         cellStyle: (params) => {
           let style = { border: "1px solid white" };
           if (params?.value?.background) {
