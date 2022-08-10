@@ -1,10 +1,11 @@
+import React from "react";
 import { lazy } from "react";
 
 const Root = lazy(() => import("./root"));
 
 const route = [
   {
-    path: "/matrix/list",
+    path: "/matrix/view",
     exact: true,
     component: Root,
   },

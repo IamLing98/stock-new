@@ -8,7 +8,7 @@ export class MartrixController {
   @Get('matrix')
   @HttpCode(200)
   get(@Req() req, @Res({ passthrough: true }) res): any {
-    return this.service.getMatrix(req?.body);
+    return this.service.getMatrix(req?.query.type);
   }
 }
 
