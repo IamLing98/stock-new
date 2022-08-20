@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import LineChart3 from "app/views/charts/echarts/LineChart3";
 import { Breadcrumb } from "@gull";
 import SimpleCard from "@gull/components/cards/SimpleCard";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Row, Col, Tab, Tabs, Button, TabContent, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import { connect } from "react-redux";
 
 //Chart
 import TopBuyAndSell from "app/views/charts/dashboard/TopBuyAndSell";
-import MultilevelTreeMap from "app/views/charts/dashboard/MultilevelTreeMap";
+// import MultilevelTreeMap from "app/views/charts/dashboard/MultilevelTreeMap";
 import Top10Stocks from "app/views/charts/dashboard/Top10Stock";
 import HNIndexChartTop from "app/views/charts/dashboard/HNIndexChartTop";
 import TopMarketInfluence from "app/views/charts/dashboard/TopMarketInfluence";
+import TabMultiLevelTreeMap from "../../charts/dashboard/MultiLevelTreeMap/TabMultiLevelTreeMap"
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -161,7 +162,7 @@ class Dashboard1 extends Component {
           {i: 'key_3', x: 9, y: 0, w: 3, h: 1},
           {i: 'key_4', x: 0, y: 1, w: 6, h: 3},
           {i: 'key_5', x: 6, y: 1, w: 6, h: 3},
-          {i: 'key_6', x: 6, y: 7.15, w: 12, h: 3.65},
+          {i: 'key_6', x: 6, y: 7.15, w: 12, h: 4.5},
           {i: 'key_7', x: 3, y: 4, w: 3, h: 3.15},
           {i: 'key_8', x: 6, y: 4, w: 6, h: 2.6},
           {i: 'key_9', x: 0, y: 7.15, w: 6, h: 4},
@@ -208,6 +209,7 @@ class Dashboard1 extends Component {
       currentBreakpoint: breakpoint
     });
   }
+
 
   onCompactTypeChange() {
     const { compactType: oldCompactType } = this.state;
@@ -322,7 +324,7 @@ class Dashboard1 extends Component {
               <div className="card-body card-title mb-0">
                 <h3 className="m-0">Bản đồ thị trường</h3>
               </div>
-              <MultilevelTreeMap chartID='san' height="400px"/>
+                <TabMultiLevelTreeMap/>
             </div>
           </div>
           <div key="key_11">

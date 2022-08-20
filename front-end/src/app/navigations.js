@@ -1,6 +1,7 @@
 export const navigations = [
   {
     name: "Dashboard",
+    path: "/dashboard/v1",
     description: "Lorem ipsum dolor sit.",
     type: "link",
     icon: "i-Bar-Chart",
