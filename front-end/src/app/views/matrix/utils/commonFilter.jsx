@@ -64,7 +64,6 @@ export default forwardRef((props, ref) => {
 
   return (
     <div style={{ padding: 4, width: 200 }}>
-      <div style={{ fontWeight: "bold" }}>Custom Athlete Filter</div>
       <div>
         <input
           style={{ margin: "4 0 4 0" }}
@@ -72,23 +71,6 @@ export default forwardRef((props, ref) => {
           value={filterText}
           onChange={onChange}
           placeholder="Full name search..."
-        />
-      </div>
-      <div style={{ marginTop: 20 }}>
-        This filter does partial word search on multiple words, eg "mich phel" still brings back Michael
-        Phelps.
-      </div>
-      <div style={{ marginTop: 20 }}>Just to emphasise that anything can go in here, here is an image!!</div>
-      <div>
-        <img
-          src="https://www.ag-grid.com/images/ag-Grid2-200.png"
-          style={{
-            width: 150,
-            textAlign: "center",
-            padding: 10,
-            margin: 10,
-            border: "1px solid lightgrey",
-          }}
         />
       </div>
     </div>

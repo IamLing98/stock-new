@@ -41,4 +41,10 @@ export const emailConfig = {
   },
 };
 
+export const matrixFilePaths = {
+  MATRIX_1: 'D:/search.html',
+  MATRIX_2: 'D:/searchmx3.html',
+  MATRIX_3: 'D:/searchmx3.html',
+};
+
 export default constants;
