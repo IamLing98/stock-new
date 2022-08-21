@@ -1,0 +1,44 @@
+ 
+
+.p-inrow{
+    margin: 0 !important;
+}
+
+#child{
+  display: flex;
+  #custom-switch{
+
+  }
+}
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  .ag-root-wrapper .ag-watermark {
+    display: none;
+  }
+  
+  .ag-header-icon,
+  .ag-header-cell-menu-button {
+    opacity: 1;
+  }
+  .ag-theme-alpine .ag-cell{
+    padding:0px !important;
+  }
+
+  .number{
+    text-align: right !important;
+  }
+
+  .child-in-cell{
+    margin: 0 0 0px !important; 
+  }
+
+  .matrix2-chart-right{
+    min-height: 400px;
+    #chartdivv{ 
+    min-height: 400px;
+    }
+  }

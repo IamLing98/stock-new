@@ -1,0 +1,11 @@
+.react-resizable-handle {
+  background-image: none;
+}
+
+.react-grid-item > .react-resizable-handle::after {
+  content: none;
+}
+
+.grid-item {
+  height: 100%;
+}
