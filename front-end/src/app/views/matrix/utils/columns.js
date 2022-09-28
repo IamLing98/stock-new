@@ -894,7 +894,13 @@ export const columnsMatrix1 = [
     align: "right",
     render: (row) => {
       return (
-        <p className="p-inrow" color={row["Close"]?.color}>
+        <p
+          className="p-inrow"
+          style={{
+            textAlign: "right",
+          }}
+          color={row["Close"]?.color}
+        >
           {row["Close"]?.value}
         </p>
       );
@@ -906,6 +912,9 @@ export const columnsMatrix1 = [
     field: "SCORESearch",
     type: "string",
     align: "right",
+    comparator: (valueA, valueB, nodeA, nodeB, isDescending) => {
+      return parseFloat(valueA) - parseFloat(valueB);
+    },
     render: (row) => {
       return (
         <div
@@ -920,6 +929,7 @@ export const columnsMatrix1 = [
             className="p-inrow"
             style={{
               color: row["SCORE"]?.color,
+              textAlign: "right",
             }}
           >
             {row["SCORE"]?.value ? row["SCORE"]?.value : ""}
@@ -932,14 +942,24 @@ export const columnsMatrix1 = [
   {
     title: "Maker",
     field: "MKControlSearch",
-    type: "string",
+    type: "number",
     align: "right",
     render: (row) => {
       return (
-        <p className="p-inrow" color={row["MKControl"]?.color}>
+        <p
+          className="p-inrow"
+          style={{
+            textAlign: "right",
+          }}
+          color={row["MKControl"]?.color}
+        >
           {row["MKControl"]?.value}
         </p>
       );
+    },
+    comparator: (valueA, valueB, nodeA, nodeB, isDescending) => {
+      console.log("Value A:", valueA, "ValueB", valueB);
+      return parseFloat(valueA) - parseFloat(valueB);
     },
     customSort: (a, b) => parseFloat(a?.MKControl?.value) - parseFloat(b?.MKControl?.value),
   },
@@ -950,10 +970,19 @@ export const columnsMatrix1 = [
     align: "right",
     render: (row) => {
       return (
-        <p className="p-inrow" color={row["Volume"]?.color}>
+        <p
+          className="p-inrow"
+          style={{
+            textAlign: "right",
+          }}
+          color={row["Volume"]?.color}
+        >
           {row["Volume"]?.value}
         </p>
       );
+    },
+    comparator: (valueA, valueB, nodeA, nodeB, isDescending) => {
+      return parseFloat(valueA?.replaceAll(",", "")) - parseFloat(valueB?.replaceAll(",", ""));
     },
     customSort: (a, b) =>
       parseFloat(a?.Volume?.value?.replaceAll(",", "")) - parseFloat(b?.Volume?.value?.replaceAll(",", "")),
@@ -1124,17 +1153,19 @@ export const columnsMatrix1 = [
           <p
             className="p-inrow"
             style={{
-              color: row["G31"]?.color,
+              color: row["G31"]?.color ? row["G31"]?.color : "black",
               marginTop: "10px",
+              backgroundColor: row["G31"]?.background ? row["G31"]?.background : "white",
             }}
           >
             {row["G32"] ? row["G31"]?.value : ""}
-          </p>{" "}
+          </p>
           <p
             className="p-inrow"
             style={{
-              color: row["G32"]?.color,
+              color: row["G32"]?.color ? row["G32"]?.color : "black",
               marginTop: "10px",
+              backgroundColor: row["G32"]?.background ? row["G32"]?.background : "white",
             }}
           >
             {row["G32"] ? row["G32"]?.value : ""}
@@ -1142,8 +1173,9 @@ export const columnsMatrix1 = [
           <p
             className="p-inrow"
             style={{
-              color: row["G33"]?.color,
+              color: row["G33"]?.color ? row["G33"]?.color : "black",
               marginTop: "10px",
+              backgroundColor: row["G33"]?.background ? row["G33"]?.background : "white",
             }}
           >
             {row["G33"] ? row["G33"]?.value : ""}
@@ -1228,7 +1260,7 @@ export const columnsMatrix22 = [
     type: "string",
     render: (row) => {
       return (
-        <p className="child-in-cell" style={{ color: row?.label?.color ? row?.label?.color : "black" }}>
+        <p className="child-in-cell">
           <b>{row?.label?.value}</b>
         </p>
       );

@@ -27,8 +27,20 @@ export const navigations = [
     sub: [
       {
         icon: "i-Error-404-Window",
-        name: "Matrix",
-        path: "/matrix/view",
+        name: "Matrix 1",
+        path: "/matrix1/view",
+        type: "link",
+      },
+      {
+        icon: "i-Error-404-Window",
+        name: "Matrix 2",
+        path: "/matrix2/view",
+        type: "link",
+      },
+      {
+        icon: "i-Error-404-Window",
+        name: "Matrix 3",
+        path: "/matrix3/view",
         type: "link",
       },
     ],

@@ -12,26 +12,9 @@ import DataTable2 from "./DataTable2";
 
 import { columnsMatrix1, columnsMatrix21, columnsMatrix22, columnsMatrix3 } from "./utils/columns";
 
+import { matrixIndexes } from "./index";
 import "./table.css";
 
-const matrixIndexes = [
-  {
-    label: "Matrix 1",
-    value: 1,
-    columnsDefault: columnsMatrix1,
-  },
-  {
-    label: "Matrix 2",
-    value: 2,
-    columnsDefault1: columnsMatrix21,
-    columnsDefault2: columnsMatrix22,
-  },
-  {
-    label: "Matrix 3",
-    value: 3,
-    columnsDefault: columnsMatrix3,
-  },
-];
 const Matrix = (props) => {
   const [type, setType] = useState("list");
 
@@ -48,7 +31,7 @@ const Matrix = (props) => {
     table2Data: [],
   });
 
-  const [matrixIndex, setMatrixIndex] = useState(matrixIndexes[0]);
+  const [matrixIndex, setMatrixIndex] = useState(matrixIndexes[2]);
 
   const [realtime, handleChangeRealtime] = useState(false);
 

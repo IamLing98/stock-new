@@ -294,17 +294,6 @@ export default function App(props) {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div id="parent">
         <div className="d-flex flex-wrap">
-          <Dropdown onSelect={(e, ev) => props.setMatrixIndex(props?.matrixIndexes[e])}>
-            <Dropdown.Toggle variant={"success"} className="mr-3 mb-3">
-              {props.matrixIndex?.label}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {props?.matrixIndexes?.map((item, index) => {
-                return <Dropdown.Item eventKey={index}>{item?.label}</Dropdown.Item>;
-              })}
-            </Dropdown.Menu>
-          </Dropdown>
-
           <label className="checkbox checkbox-primary">
             <input type="checkbox" />
             <span>Cập nhật realtime</span>

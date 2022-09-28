@@ -2,56 +2,62 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import { LicenseManager } from "ag-grid-enterprise";
 import ChildMessageRenderer from "./ChildMessageRenderer";
-import { Button, Dropdown } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-
+import { Button, Dropdown, Row, Col, Container } from "react-bootstrap";
+import CustomPinnedRowRenderer from "./utils/customPinnedRowRenderer";
 import AG_GRID_LOCALE_ZZZ from "./locale.zzz";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import "./style.scss";
+import Matrix2ChartRight from "./utils/Matrix2ChartRight";
+import Matrix2ChartLeft from "./utils/Matrix2ChartLeft";
 
 LicenseManager.setLicenseKey("<enterprisekey>");
 
 export default function App(props) {
   const gridRef = useRef();
+  const gridRef2 = useRef();
 
   const [state, setState] = useState({
     modal: false,
-    columnDefs: props?.matrixIndex?.columnsDefault?.map((item) => {
-      return {
+    columnDefs: props?.matrixIndex?.columnsDefault1?.map((item) => {
+      let rs = {
         headerName: item?.title,
         field: item?.field,
-        minWidth: 120,
-        cellRenderer: "childMessageRenderer",
-        floatingFilter: true,
+        minWidth: 220,
         wrapText: true,
-        comparator: item?.comparator,
         autoHeight: true,
         cellStyle: (params) => {
           let style = { border: "1px solid white" };
-          let cellData = params?.data[params?.colDef?.field?.replace("Search", "")];
-          if (cellData?.background) {
-            style.backgroundColor = cellData?.background;
-          }
-          if (cellData?.color) {
-            style.color = cellData?.color;
+          if (params?.value?.background) {
+            style.backgroundColor = params?.value?.background;
           }
           return style;
         },
-        render: (row) => item?.render(row),
+        cellRendererSelector: (params) => {
+          if (params.data.pined) {
+            return {
+              component: CustomPinnedRowRenderer,
+              params: {
+                style: {},
+              },
+            };
+          } else {
+            // rows that are not pinned don't use any cell renderer
+            return undefined;
+          }
+        },
       };
+      if (item?.render) {
+        rs.render = item?.render;
+        rs.cellRenderer = "childMessageRenderer";
+      }
+      return rs;
     }),
 
     defaultColDef: {
       enableValue: true,
-      enablePivot: true,
       sortable: true,
-      filter: "agTextColumnFilter",
-      /*filter: true,
-            checkboxSelection: true,
-            filter: "agTextColumnFilter",*/
-      resizable: true,
     },
     detailCellRendererParams: {
       detailGridOptions: {
@@ -69,8 +75,6 @@ export default function App(props) {
           enableValue: true,
           enablePivot: true,
           sortable: true,
-          filter: "agTextColumnFilter",
-          resizable: true,
         },
       },
       getDetailRowData: function (params) {
@@ -111,11 +115,95 @@ export default function App(props) {
     indexRow: null,
   });
 
+  const [state2, setState2] = useState({
+    modal: false,
+    columnDefs: props?.matrixIndex?.columnsDefault2?.map((item) => {
+      let rs = {
+        headerName: item?.title,
+        field: item?.field,
+        minWidth: 100,
+        wrapText: true,
+        autoHeight: true,
+        cellStyle: (params) => {
+          let style = { border: "1px solid white" };
+          if (params?.value?.background) {
+            style.backgroundColor = params?.value?.background;
+          }
+          if (params?.value?.color) {
+            style.color = params?.value?.color;
+          }
+          return style;
+        },
+      };
+      if (item?.render) {
+        rs.render = item?.render;
+        rs.cellRenderer = "childMessageRenderer";
+      }
+      return rs;
+    }),
+
+    defaultColDef: {
+      enableValue: true,
+      sortable: true,
+      filter: "agTextColumnFilter",
+      resizable: true,
+    },
+    detailCellRendererParams: {
+      detailGridOptions: {
+        columnDefs: [],
+        defaultColDef: {
+          enableValue: true,
+          sortable: true,
+          resizable: true,
+        },
+      },
+      getDetailRowData: function (params) {
+        params.successCallback(params.data.callRecords);
+      },
+      template:
+        '<div style="height: 100%; background-color: #edf6ff; padding: 20px; box-sizing: border-box;">' +
+        '  <div style="height: 10%;">Call Details</div>' +
+        '  <div ref="eDetailGrid" style="height: 90%;"></div>' +
+        "</div>",
+    },
+    rowData: [],
+    // rowHeight: props.matrixIndex?.value === 3 ? 46 : 250,
+    excelStyles: [
+      {
+        id: "indent-1",
+        alignment: { indent: 1 },
+        dataType: "string",
+      },
+    ],
+    searchResult: null,
+    sideBar: {
+      toolPanels: [
+        "columns",
+        {
+          id: "filters",
+          labelKey: "filters",
+          labelDefault: "Filters",
+          iconKey: "menu",
+          toolPanel: "agFiltersToolPanel",
+        },
+      ],
+      defaultToolPanel: "",
+    },
+    context: { componentParent: this },
+    frameworkComponents: {
+      childMessageRenderer: ChildMessageRenderer,
+    },
+    indexRow: null,
+  });
+
   useEffect(() => {
-    setState({ ...state, rowData: props.data });
+    console.log(" props.data", props.data);
+    setState({ ...state, rowData: props.matrix2Data?.table1Data?.filter((item) => !item?.pined) });
+    setState2({ ...state2, rowData: props.matrix2Data?.table2Data });
   }, [JSON.stringify(props.data)]);
 
   useEffect(() => {
+    console.log("  gridRef?.current?.columnApi:", gridRef?.current?.columnApi);
     // eslint-disable-next-line no-unused-expressions
     gridRef?.current?.columnApi?.autoSizeAllColumns(true);
   }, [JSON.stringify(state?.rowData)]);
@@ -231,21 +319,26 @@ export default function App(props) {
           </Button>
         </div>
       </div>
-
-      <div className="data-table flex">
-        <div id="myGrid" className="ag-theme-alpine" style={{ height: "83vh", width: "100%" }}>
+      <Row>
+        <Col md={6}>
+          <Matrix2ChartLeft data={props.matrix2Data?.chartLeftData} />
+        </Col>
+        <Col md={6}>
+          <div className="matrix2-chart-right">
+            <Matrix2ChartRight dataChart={props.matrix2Data?.table1Data} />
+          </div>
+        </Col>
+      </Row>
+      <div className="data-table flex ">
+        <div id="myGrid" className="ag-theme-alpine" style={{ height: "80vh", width: "100%" }}>
           <AgGridReact
             ref={gridRef}
-            // onGridReady={(params) => {
-            //     gridRef.current.api = params.api;
-            //     gridRef.current.columnApi = params.columnApi;
-            // }}
             rowSelection="multiple"
             columnDefs={state.columnDefs}
             defaultColDef={state.defaultColDef}
             sideBar={state.sideBar}
             groupSelectsChildren={true}
-            pagination={true}
+            pagination={false}
             paginationPageSize={state.paginationPageSize}
             paginateChildRows={true}
             autoGroupColumnDef={state.autoGroupColumnDef}
@@ -256,12 +349,41 @@ export default function App(props) {
             detailCellRendererParams={state.detailCellRendererParams}
             floatingFilter={true}
             cacheQuickFilter={true}
-            //   isExternalFilterPresent={isExternalFilterPresent}
-            //   doesExternalFilterPass={doesExternalFilterPass}
             suppressMenuHide={true}
             frameworkComponents={state.frameworkComponents}
             context={state.context}
             rowHeight={state.rowHeight}
+            localeText={localeText}
+            pinnedBottomRowData={props?.matrix2Data?.table1Data?.filter((item) => item?.pined)}
+          />
+        </div>
+      </div>
+      <div className="data-table flex " style={{ marginTop: "42px" }}>
+        <div id="myGrid" className="ag-theme-alpine" style={{ height: "80vh", width: "100%" }}>
+          <AgGridReact
+            ref={gridRef2}
+            rowSelection="multiple"
+            columnDefs={state2.columnDefs}
+            defaultColDef={state2.defaultColDef}
+            sideBar={state2.sideBar}
+            groupSelectsChildren={true}
+            pagination={true}
+            paginationPageSize={state2.paginationPageSize}
+            paginateChildRows={true}
+            autoGroupColumnDef={state2.autoGroupColumnDef}
+            rowData={state2.rowData}
+            excelStyles={state2.excelStyles}
+            masterDetail={true}
+            onFirstDataRendered={onFirstDataRendered}
+            detailCellRendererParams={state2.detailCellRendererParams}
+            floatingFilter={true}
+            cacheQuickFilter={true}
+            //   isExternalFilterPresent={isExternalFilterPresent}
+            //   doesExternalFilterPass={doesExternalFilterPass}
+            suppressMenuHide={true}
+            frameworkComponents={state2.frameworkComponents}
+            context={state2.context}
+            rowHeight={state2.rowHeight}
             localeText={localeText}
           />
         </div>

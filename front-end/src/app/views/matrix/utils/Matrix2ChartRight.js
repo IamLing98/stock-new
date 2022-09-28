@@ -38,36 +38,7 @@ export default function Matrix2ChartRight({ dataChart }) {
         })
       );
 
-      let data = [
-        dataChart[2],
-        // {
-        //   year: "2021",
-        //   europe: 2.5,
-        //   namerica: 2.5,
-        //   asia: 2.1,
-        //   lamerica: 1,
-        //   meast: 0.8,
-        //   africa: 0.4,
-        // },
-        // {
-        //   year: "2022",
-        //   europe: 2.6,
-        //   namerica: 2.7,
-        //   asia: 2.2,
-        //   lamerica: 0.5,
-        //   meast: 0.4,
-        //   africa: 0.3,
-        // },
-        // {
-        //   year: "2023",
-        //   europe: 2.8,
-        //   namerica: 2.9,
-        //   asia: 2.4,
-        //   lamerica: 0.3,
-        //   meast: 0.9,
-        //   africa: 0.5,
-        // },
-      ];
+      let data = [dataChart[2]];
 
       // Create axes
       // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
@@ -99,7 +70,7 @@ export default function Matrix2ChartRight({ dataChart }) {
 
       // Add series
       // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-      function makeSeries(name, fieldName) {
+      function makeSeries(name, fieldName, color) {
         let series = chart.series.push(
           am5xy.ColumnSeries.new(root, {
             name: name,
@@ -109,6 +80,13 @@ export default function Matrix2ChartRight({ dataChart }) {
             baseAxis: yAxis,
             valueXField: fieldName,
             categoryYField: "label",
+            fill: color,
+            text: "black",
+            labels: {
+              template: {
+                fontSize: 25,
+              },
+            },
           })
         );
 
@@ -137,13 +115,13 @@ export default function Matrix2ChartRight({ dataChart }) {
         legend.data.push(series);
       }
 
-      makeSeries("Giảm mạnh", "strongDown");
-      makeSeries("Giảm vừa", "mediumDown");
-      makeSeries("Giảm nhẹ", "softDown");
-      makeSeries("Tham chiếu", "refer");
-      makeSeries("Tăng nhẹ", "softUp");
-      makeSeries("Tăng vừa", "mediumUp");
-      makeSeries("Tăng mạnh", "strongUp");
+      makeSeries("Giảm mạnh", "strongDown", "blue");
+      makeSeries("Giảm vừa", "mediumDown", "red");
+      makeSeries("Giảm nhẹ", "softDown", "orange");
+      makeSeries("Tham chiếu", "refer", "yellow");
+      makeSeries("Tăng nhẹ", "softUp", "cyan");
+      makeSeries("Tăng vừa", "mediumUp", "green");
+      makeSeries("Tăng mạnh", "strongUp", "#663399");
 
       // Make stuff animate on load
       // https://www.amcharts.com/docs/v5/concepts/animations/

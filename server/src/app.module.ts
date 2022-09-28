@@ -9,7 +9,7 @@ import TasksModule from 'src/modules/Task';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    // TasksModule,
+    TasksModule,
     AuthModule,
     MatrixModule,
     MailModule,

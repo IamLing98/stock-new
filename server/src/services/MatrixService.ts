@@ -28,7 +28,7 @@ export class MatrixService {
         const dbo = client.db('stock-app');
         const collection = dbo.collection('matrix-data');
         const query = { type: parseInt(type) === 3 ? 3 : 1 };
-        const sort = { sort: { createTime: -1 } };
+        const sort = { sort: { _id: -1 } };
         let res = await collection.findOne(query, sort);
         return new ReponseData(HTTP_STATUS_OK, null, res);
       } catch (ex) {

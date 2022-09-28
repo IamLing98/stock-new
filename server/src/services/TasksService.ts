@@ -4,6 +4,7 @@ import constants, {
   matrixFilePaths,
   tickFilterMatrix2,
 } from 'src/utils/constants';
+import { isNumeric, roundUsing } from 'src/utils/dataUtils';
 
 const fs = require('fs');
 
@@ -18,17 +19,9 @@ export class TasksService {
 
   @Cron('0 */1 * * * *')
   getMatrixData1() {
-    this.logger.log(
-      `TASK START: Start read data from HTML Export for matrix 1`,
-    );
+    this.logger.log(`TASK START: Start read data from HTML Export for matrix `);
+    this.clear();
     this.readFile(matrixFilePaths.MATRIX_1, 1);
-  }
-
-  @Cron('0 */1 * * * *')
-  getMatrixData3() {
-    this.logger.log(
-      `TASK START: Start read data from HTML Export for matrix 3`,
-    );
     this.readFile(matrixFilePaths.MATRIX_3, 3);
   }
 
@@ -289,7 +282,7 @@ export class TasksService {
     data = data?.sort((a, b) => {
       const aScore = parseFloat(a?.SCORE?.value?.split(',', '')?.join(''));
       const bScore = parseFloat(b?.SCORE?.value?.split(',', '')?.join(''));
-      return aScore - bScore;
+      return bScore - aScore;
     });
 
     // Find all ticker for sector name: Future
@@ -342,27 +335,38 @@ export class TasksService {
         findData = data;
       }
 
+      let top3Score = findData
+        ?.filter(
+          (item) =>
+            sector?.value?.toLowerCase() === item?.Sector?.value?.toLowerCase(),
+        )
+        .sort(
+          (a, b) =>
+            parseFloat(b?.SCORE?.value?.split(',')?.join('')) -
+            parseFloat(a?.SCORE?.value?.split(',')?.join('')),
+        )
+        .slice(0, 3);
+      sumRow.top3Score = top3Score;
       findData.forEach((item) => {
         if (
           sector?.value?.toLowerCase() === item?.Sector?.value?.toLowerCase() ||
           sector.value === 'Future' ||
           sector.value === 'Index'
         ) {
-          if (sumRow?.top3Score?.length < 3) {
-            sumRow.top3Score.push(item);
-          }
           sumRow.totalTicker += 1;
-          sumRow.sumVolume += parseInt(
-            item?.Volume?.value ? item?.Volume?.value?.split(',')?.join('') : 0,
-          );
-          sumRow.sumMarket += parseInt(
-            item?.MKControl?.value
-              ? item?.MKControl?.value?.split(',')?.join('')
-              : 0,
-          );
-          sumRow.sumScore += parseInt(
-            item?.SCORE?.value ? item?.SCORE?.value?.split(',')?.join('') : 0,
-          );
+          sumRow.sumVolume += isNumeric(
+            item?.Volume?.value?.split(',')?.join(''),
+          )
+            ? parseInt(item?.Volume?.value?.split(',')?.join(''))
+            : 0;
+          sumRow.sumMarket += isNumeric(
+            item?.MKControl?.value?.split(',')?.join(''),
+          )
+            ? parseInt(item?.MKControl?.value?.split(',')?.join(''))
+            : 0;
+          sumRow.sumScore += isNumeric(item?.SCORE?.value?.split(',')?.join(''))
+            ? parseInt(item?.SCORE?.value?.split(',')?.join(''))
+            : 0;
           item['Change(%)Search'] = item['Change(%)']?.value;
           // Giảm mạnh
           if (parseFloat(item['Change(%)Search']) < -5.0) {
@@ -406,8 +410,16 @@ export class TasksService {
           }
         }
       });
-      sumRow.medianScore = sumRow.sumScore / sumRow.totalTicker;
-      sumRow.medianMarket = sumRow.sumMarket / sumRow.totalTicker;
+      sumRow.medianScore = roundUsing(
+        Math.floor,
+        sumRow.sumScore / sumRow.totalTicker,
+        2,
+      );
+      sumRow.medianMarket = roundUsing(
+        Math.floor,
+        sumRow.sumMarket / sumRow.totalTicker,
+        2,
+      );
       rs.push(sumRow);
     });
 
@@ -444,11 +456,13 @@ export class TasksService {
         hostEndsWith(item['TICKERVN']?.value, tickFilterMatrix2),
       )
       ?.map((item, index) => {
+        let x = parseFloat(item?.MKControl?.value?.split(',').join(''));
+        let y = parseFloat(item?.SCORE?.value?.split(',').join(''));
         const newItem = {
-          x: parseFloat(item?.MKControl?.value),
-          y: parseFloat(item?.SCORE?.value),
+          x: x,
+          y: y,
           z:
-            parseFloat(item?.SCORE?.value) *
+            parseFloat(item?.SCORE?.value?.split(',').join('')) *
             parseFloat(item?.Volume?.value?.split(',').join('')),
           name: item?.TICKERVN?.value,
           ticker: item?.TICKERVN?.value,
@@ -559,6 +573,22 @@ export class TasksService {
       this.logger.error(`Write file error`);
     }
   };
+
+  clear() {
+    this.logger.log('Clear old data: ');
+    try {
+      MongoClient.connect(constants.MONGO_URL, function (err, db) {
+        if (err) throw err;
+        const dbo = db.db('stock-app');
+        dbo.collection('matrix-data').deleteMany({}, function (err, res) {
+          if (err) throw err;
+          db.close();
+        });
+      });
+    } catch (ex) {
+      this.logger.error('Clear old data  error: ' + ex);
+    }
+  }
 }
 
 export default TasksService;
